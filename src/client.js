@@ -3,6 +3,7 @@ const { createDeserializer, createSerializer } = require('./transforms/serialize
 const { serialize, isDebug } = require('./datatypes/util')
 const debug = require('debug')('minecraft-protocol')
 const Options = require('./options')
+const { getBedrockData } = require('./mcData')
 const auth = require('./client/auth')
 const initRaknet = require('./rak')
 const { NethernetClient } = require('./nethernet')
@@ -79,7 +80,7 @@ class Client extends Connection {
 
   _loadFeatures () {
     try {
-      const mcData = require('minecraft-data')('bedrock_' + this.options.version)
+      const mcData = getBedrockData(this.options.version)
       this.features = {
         compressorInHeader: mcData.supportFeature('compressorInPacketHeader'),
         itemRegistryPacket: mcData.supportFeature('itemRegistryPacket'),

@@ -4,6 +4,7 @@ const { Player } = require('./serverPlayer')
 const { sleep } = require('./datatypes/util')
 const { ServerAdvertisement, NethernetServerAdvertisement } = require('./server/advertisement')
 const Options = require('./options')
+const { getBedrockData } = require('./mcData')
 const { closeNethernet } = require('./nethernet/cleanup')
 
 const debug = globalThis.isElectron ? console.debug : require('debug')('minecraft-protocol')
@@ -50,7 +51,7 @@ class Server extends EventEmitter {
 
   _loadFeatures (version) {
     try {
-      const mcData = require('minecraft-data')('bedrock_' + version)
+      const mcData = getBedrockData(version)
       this.features = {
         compressorInHeader: mcData.supportFeature('compressorInPacketHeader'),
         newLoginIdentityFields: mcData.supportFeature('newLoginIdentityFields')

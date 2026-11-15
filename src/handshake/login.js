@@ -2,9 +2,10 @@ const JWT = require('jsonwebtoken')
 const { nextUUID } = require('../datatypes/util')
 const { PUBLIC_KEY } = require('./constants')
 const algorithm = 'ES384'
+const { getBedrockData } = require('../mcData')
 
 module.exports = (client, server, options) => {
-  const skinData = require('minecraft-data')('bedrock_' + options.version).defaultSkin
+  const skinData = getBedrockData(options.version).defaultSkin
   // TODO: Use feature or ver compare functions
   const protocolVersion = options.protocolVersion || 0
   const useOidcOfflineLogin = protocolVersion >= 944

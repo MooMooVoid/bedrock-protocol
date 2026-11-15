@@ -2,6 +2,7 @@ const { ProtoDefCompiler, CompiledProtodef } = require('protodef').Compiler
 const { FullPacketParser, Serializer } = require('protodef')
 const { join } = require('path')
 const fs = require('fs')
+const { getBedrockData } = require('../mcData')
 
 class Parser extends FullPacketParser {
   dumpFailedBuffer (packet, prefix = '') {
@@ -33,7 +34,7 @@ function createProtocol (version) {
   // Try and load from .js if available
   try { require(`../../data/${version}/size.js`); return getProtocol(version) } catch {}
 
-  const protocol = require('minecraft-data')('bedrock_' + version).protocol
+  const protocol = getBedrockData(version).protocol
   const compiler = new ProtoDefCompiler()
   compiler.addTypesToCompile(protocol.types)
   compiler.addTypes(require('../datatypes/compiler-minecraft'))

@@ -61,5 +61,9 @@
   "homepage": "https://github.com/PrismarineJS/bedrock-protocol#readme",
   "engines": {
     "node": ">=24"
+  },
+  "allowScripts": {
+    "leveldb-zlib@1.2.1": true,
+    "raknet-native@1.2.3": true
   }
 }
